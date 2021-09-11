@@ -2,7 +2,7 @@
 This container implements a set of tools suitable for Wordpress site hosting, monitoring and management:
 - Wordpress
 - MySQL 5.7
-- Hysh Docker management container
+- HyperShell Docker management container (Hysh)
 - PHPMyAdmin
 - LinuxServer SWAG
 
