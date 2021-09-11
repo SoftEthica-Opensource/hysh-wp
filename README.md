@@ -2,7 +2,7 @@
 This container implements a set of tools suitable for Wordpress site hosting, monitoring and management:
 - Wordpress
 - MySQL 5.7
-- Hysh Docker manahement container
+- Hysh Docker management container
 - PHPMyAdmin
 - LinuxServer SWAG
 
@@ -10,7 +10,7 @@ This container implements a set of tools suitable for Wordpress site hosting, mo
 
 **IMPORTANT** - you must have your DNS A-record set up!
 
-Edit `.env` file and replace provided dummy Chaincode ID
+Edit `.env` file and replace provided dummy Chaincode ID, Email and URL
 
 ```shell
 CHAINCODE_ID_NAME=54acec8c9aa84185876e72256d039e32
