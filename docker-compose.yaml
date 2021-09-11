@@ -76,7 +76,7 @@ services:
         max-size: "20k"
         max-file: "5"
     volumes:
-      - ./wp-content:/var/www/html/wp-content
+      - ./wordpress:/var/www/html
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
   db:
     container_name: db
