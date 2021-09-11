@@ -1,5 +1,5 @@
 # HyperShell Docker Host Wordpress container set
-This container implements a set of tools suitable for Wordpress site hosting, monitoring and management:
+This build implements a set of tools suitable for Wordpress site hosting, monitoring and management:
 - Wordpress
 - MySQL 5.7
 - HyperShell Docker management container (Hysh)
