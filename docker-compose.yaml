@@ -1,0 +1,115 @@
+version: '3.6'
+networks:
+    basic:
+services:
+  hysh-docker-host:
+    container_name: hysh
+    build:
+      context: .
+      args:
+        INSTALLER_URI: ${INSTALLER_URI}
+        AGENT_NAME: ${AGENT_NAME}
+        AGENT_IDENTIFIER: ${CHAINCODE_ID_NAME}
+        HYSH_START_TEMPLATE_URL: ${HYSH_START_TEMPLATE_URL}
+    restart: always
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    environment:
+      CHAINCODE_ID_NAME: ${CHAINCODE_ID_NAME}
+      CHAINCODE_VERSION: ${CHAINCODE_VERSION}
+      PEER_ADDRESS: ${PEER_ADDRESS}      
+    networks:
+      - basic      
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20k"
+        max-file: "5"
+  swag:
+    image: linuxserver/swag
+    container_name: swag
+    depends_on:
+      - wordpress
+    volumes:
+      - ./config:/config
+      - ./default:/config/nginx/site-confs/default
+    environment:
+      - EMAIL=${EMAIL}
+      - URL=${URL}
+      - VALIDATION=http
+      - TZ=Europe/London
+      - PUID=500
+      - PGID=500
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      - basic      
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20k"
+        max-file: "5"
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    hostname: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_MEMORY_LIMIT', '96M' );
+    networks:
+      - basic
+    depends_on:
+      - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20k"
+        max-file: "5"
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
+  db:
+    container_name: db
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    networks:
+      - basic
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20k"
+        max-file: "5"
+    volumes:
+      - ./db:/var/lib/mysql
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8088:80
+    networks:
+      - basic
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20k"
+        max-file: "5"
+    environment:
+      - PMA_ARBITRARY=1
