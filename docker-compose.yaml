@@ -29,6 +29,7 @@ services:
   swag:
     image: linuxserver/swag
     container_name: swag
+    restart: always
     depends_on:
       - wordpress
     volumes:
