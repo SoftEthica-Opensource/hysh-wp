@@ -1,7 +1,8 @@
-# HyperShell Docker Host Wordpress container set
-This build implements a set of tools suitable for Wordpress site hosting, monitoring and management:
-- Wordpress
+# HyperShell Docker Host WordPress container set
+This build implements a set of tools suitable for WordPress site hosting, monitoring and management:
+- WordPress
 - MySQL 5.7
+- WordPress CLI
 - HyperShell Docker management container (Hysh)
 - PHPMyAdmin
 - LinuxServer SWAG
@@ -18,6 +19,8 @@ EMAIL=
 URL=
 ```
 with your real device Chaincode ID, your email and your site url (for SSL Cert).
+
+You should also change `example` DB credentials in the `docker-compose.yml` file.
 
 Simply execute:
 
