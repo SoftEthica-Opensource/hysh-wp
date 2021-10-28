@@ -98,6 +98,25 @@ services:
         max-file: "5"
     volumes:
       - ./db:/var/lib/mysql
+  wp-cli:
+    container_name: wp-cli
+    restart: always
+    depends_on:
+      - db
+      - wordpress
+    image: wordpress:cli
+    networks:
+      - basic
+    volumes:
+      - ./wordpress:/var/www/html
+    command: tail -f /dev/null
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_MEMORY_LIMIT', '96M' );
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin
