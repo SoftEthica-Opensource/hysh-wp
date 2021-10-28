@@ -20,7 +20,7 @@ URL=
 ```
 with your real device Chaincode ID, your email and your site url (for SSL Cert).
 
-You should also change `example` DB credentials in the `docker-compose.yml` file.
+You should also change `example` DB credentials in the `docker-compose.yaml` file.
 
 Simply execute:
 
